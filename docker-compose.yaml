@@ -1,0 +1,60 @@
+version: "3"
+
+services:
+  feeds:
+    build:
+      dockerfile: Dockerfile
+      context: ./udagram-api-feeds
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=postgres
+      - AWS_BUCKET=${AWS_BUCKET}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - JWT_SECRET=testing
+      - URL=http://localhost:8100
+    depends_on:
+      - postgres
+
+  users:
+    build:
+      dockerfile: Dockerfile
+      context: ./udagram-api-users
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=postgres
+      - AWS_BUCKET=${AWS_BUCKET}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - JWT_SECRET=testing
+      - URL=http://localhost:8100
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./udagram-frontend
+    ports:
+      - 8100:80
+  
+  reverseproxy:
+    build:
+      dockerfile: Dockerfile
+      context: ./udagram-reverseproxy
+    ports:
+      - 8080:8080
+    depends_on:
+      - feeds
+      - users
+
+  postgres:
+    image: postgres:14-bullseye
+    environment:
+      - POSTGRES_PASSWORD=password
