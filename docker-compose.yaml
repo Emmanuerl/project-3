@@ -2,9 +2,10 @@ version: "3"
 
 services:
   feeds:
-    build:
-      dockerfile: Dockerfile
-      context: ./udagram-api-feeds
+    image: emmanuerl/udagram-api-feeds
+    # build:
+    #   dockerfile: Dockerfile
+    #   context: ./udagram-api-feeds
     environment:
       - POSTGRES_USERNAME=postgres
       - POSTGRES_PASSWORD=password
@@ -15,35 +16,36 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - JWT_SECRET=testing
-      - URL=http://localhost
       - PORT=80
     depends_on:
       - postgres
 
   users:
-    build:
-      dockerfile: Dockerfile
-      context: ./udagram-api-users
+    image: emmanuerl/udagram-api-users
+    # build:
+    #   dockerfile: Dockerfile
+    #   context: ./udagram-api-users
     environment:
       - POSTGRES_USERNAME=postgres
       - POSTGRES_PASSWORD=password
       - POSTGRES_HOST=postgres
       - POSTGRES_DB=postgres
       - JWT_SECRET=testing
-      - URL=http://localhost
       - PORT=80
     depends_on:
       - postgres
 
   frontend:
-    build:
-      dockerfile: Dockerfile
-      context: ./udagram-frontend
+    image: emmanuerl/udagram-frontend
+    # build:
+    #   dockerfile: Dockerfile
+    #   context: ./udagram-frontend
   
   reverseproxy:
-    build:
-      dockerfile: Dockerfile
-      context: ./udagram-reverseproxy
+    image: emmanuerl/udagram-reverseproxy
+    # build:
+    #   dockerfile: Dockerfile
+    #   context: ./udagram-reverseproxy
     ports:
       - 80:80
     depends_on:
