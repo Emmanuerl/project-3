@@ -22,10 +22,10 @@ script:
   # - docker build -t udagram-frontend .; cd ../
   # - docker tag udagram-frontend "$DOCKER_USERNAME"/udagram-frontend:latest
 
-  # - echo Initiating build process for feeds project
-  # - cd udagram-api-feeds
-  # - docker build -t udagram-api-feeds .; cd ../
-  # - docker tag udagram-api-feeds "$DOCKER_USERNAME"/udagram-api-feeds:latest
+  - echo Initiating build process for feeds project
+  - cd udagram-api-feeds
+  - docker build -t udagram-api-feeds .; cd ../
+  - docker tag udagram-api-feeds "$DOCKER_USERNAME"/udagram-api-feeds:latest
 
   - echo Initiating build process for users project
   - cd udagram-api-users
