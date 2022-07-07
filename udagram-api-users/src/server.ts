@@ -7,7 +7,7 @@ import express from "express";
 import { sequelize } from "./sequelize";
 
 (async () => {
-  await sequelize.addModels(V0_USER_MODELS);
+  sequelize.addModels(V0_USER_MODELS);
 
   console.debug("Initialize database connection...");
   await sequelize.sync();
@@ -15,7 +15,7 @@ import { sequelize } from "./sequelize";
   const app = express();
   const port = process.env.PORT || 8080;
 
-  app.use(bodyParser.json());
+  app.use(express.json());
 
   // We set the CORS origin to * so that we don't need to
   // worry about the complexities of CORS this lesson. It's
@@ -37,11 +37,6 @@ import { sequelize } from "./sequelize";
   );
 
   app.use("/api/v0/", IndexRouter);
-
-  // Root URI call
-  app.get("/", async (req, res) => {
-    res.send("/api/v0/");
-  });
 
   // Start the Server
   app.listen(port, () => {
