@@ -32,9 +32,9 @@ script:
   - docker tag udagram-api-users "$DOCKER_USERNAME"/udagram-api-users:"$TRAVIS_COMMIT"  
 
   - echo Initiating build process for reverseproxy project
-  - cd udagram-api-reverseproxy
+  - cd udagram-reverseproxy
   - docker build -t udagram-reverseproxy .; cd ../
-  - docker tag udagram-api-reverseproxy "$DOCKER_USERNAME"/udagram-api-reverseproxy:"$TRAVIS_COMMIT"
+  - docker tag udagram-reverseproxy "$DOCKER_USERNAME"/udagram-reverseproxy:"$TRAVIS_COMMIT"
 
   - echo build process completed!
 
@@ -44,4 +44,4 @@ after_success:
   - docker push "$DOCKER_USERNAME"/udagram-api-frontend
   - docker push "$DOCKER_USERNAME"/udagram-api-users
   - docker push "$DOCKER_USERNAME"/udagram-api-feeds
-  - docker push "$DOCKER_USERNAME"/udagram-api-reverseproxy
+  - docker push "$DOCKER_USERNAME"/udagram-reverseproxy
