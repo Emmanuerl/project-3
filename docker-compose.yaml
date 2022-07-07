@@ -28,10 +28,6 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_HOST=postgres
       - POSTGRES_DB=postgres
-      - AWS_BUCKET=${AWS_BUCKET}
-      - AWS_REGION=${AWS_REGION}
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - JWT_SECRET=testing
       - URL=http://localhost:8100
     depends_on:

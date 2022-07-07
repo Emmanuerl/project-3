@@ -1,0 +1,46 @@
+language: node_js
+node_js:
+  - 14
+
+services:
+  - docker
+
+# Pre-testing installs
+install:
+  - echo "nothing needs to be installed"
+
+# Scripts to be run such as tests
+before_script:
+  - echo deployment initiated at `date`
+  - docker --version # print the version for logging
+
+script:
+  - echo Initiating build process for frontend project
+  - cd udagram-frontend
+  - docker build -t udagram-frontend .; cd ../
+  - docker tag udagram-frontend "$DOCKER_USERNAME"/udagram-frontend:"$TRAVIS_COMMIT"
+
+  - echo Initiating build process for feeds project
+  - cd udagram-api-feeds
+  - docker build -t udagram-api-feeds .; cd ../
+  - docker tag udagram-api-feeds "$DOCKER_USERNAME"/udagram-api-feeds:"$TRAVIS_COMMIT"
+
+  - echo Initiating build process for users project
+  - cd udagram-api-users
+  - docker build -t udagram-api-users .; cd ../
+  - docker tag udagram-api-users "$DOCKER_USERNAME"/udagram-api-users:"$TRAVIS_COMMIT"  
+
+  - echo Initiating build process for reverseproxy project
+  - cd udagram-api-reverseproxy
+  - docker build -t udagram-api-reverseproxy .; cd ../
+  - docker tag udagram-api-reverseproxy "$DOCKER_USERNAME"/udagram-api-reverseproxy:"$TRAVIS_COMMIT"
+
+  - echo build process completed!
+
+# Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push "$DOCKER_USERNAME"/udagram-api-frontend
+  - docker push "$DOCKER_USERNAME"/udagram-api-users
+  - docker push "$DOCKER_USERNAME"/udagram-api-feeds
+  - docker push "$DOCKER_USERNAME"/udagram-api-reverseproxy
