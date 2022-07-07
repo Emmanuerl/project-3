@@ -33,7 +33,7 @@ script:
 
   - echo Initiating build process for reverseproxy project
   - cd udagram-api-reverseproxy
-  - docker build -t udagram-api-reverseproxy .; cd ../
+  - docker build -t udagram-reverseproxy .; cd ../
   - docker tag udagram-api-reverseproxy "$DOCKER_USERNAME"/udagram-api-reverseproxy:"$TRAVIS_COMMIT"
 
   - echo build process completed!
