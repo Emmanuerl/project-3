@@ -17,20 +17,20 @@ before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 script:
-  - echo Initiating build process for frontend project
-  - cd udagram-frontend
-  - docker build -t udagram-frontend .; cd ../
-  - docker tag udagram-frontend "$DOCKER_USERNAME"/udagram-frontend:latest
+  # - echo Initiating build process for frontend project
+  # - cd udagram-frontend
+  # - docker build -t udagram-frontend .; cd ../
+  # - docker tag udagram-frontend "$DOCKER_USERNAME"/udagram-frontend:latest
 
-  - echo Initiating build process for feeds project
-  - cd udagram-api-feeds
-  - docker build -t udagram-api-feeds .; cd ../
-  - docker tag udagram-api-feeds "$DOCKER_USERNAME"/udagram-api-feeds:latest
+  # - echo Initiating build process for feeds project
+  # - cd udagram-api-feeds
+  # - docker build -t udagram-api-feeds .; cd ../
+  # - docker tag udagram-api-feeds "$DOCKER_USERNAME"/udagram-api-feeds:latest
 
-  - echo Initiating build process for users project
-  - cd udagram-api-users
-  - docker build -t udagram-api-users .; cd ../
-  - docker tag udagram-api-users "$DOCKER_USERNAME"/udagram-api-users:latest  
+  # - echo Initiating build process for users project
+  # - cd udagram-api-users
+  # - docker build -t udagram-api-users .; cd ../
+  # - docker tag udagram-api-users "$DOCKER_USERNAME"/udagram-api-users:latest  
 
   - echo Initiating build process for reverseproxy project
   - cd udagram-reverseproxy
@@ -41,6 +41,7 @@ script:
 
 # Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
 after_success:
+  - docker image ls -a
   - docker push "$DOCKER_USERNAME"/udagram-api-frontend:latest
   - docker push "$DOCKER_USERNAME"/udagram-api-users:latest
   - docker push "$DOCKER_USERNAME"/udagram-api-feeds:latest
