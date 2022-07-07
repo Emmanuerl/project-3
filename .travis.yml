@@ -27,10 +27,10 @@ script:
   # - docker build -t udagram-api-feeds .; cd ../
   # - docker tag udagram-api-feeds "$DOCKER_USERNAME"/udagram-api-feeds:latest
 
-  # - echo Initiating build process for users project
-  # - cd udagram-api-users
-  # - docker build -t udagram-api-users .; cd ../
-  # - docker tag udagram-api-users "$DOCKER_USERNAME"/udagram-api-users:latest  
+  - echo Initiating build process for users project
+  - cd udagram-api-users
+  - docker build -t udagram-api-users .; cd ../
+  - docker tag udagram-api-users "$DOCKER_USERNAME"/udagram-api-users:latest  
 
   - echo Initiating build process for reverseproxy project
   - cd udagram-reverseproxy
