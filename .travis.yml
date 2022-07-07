@@ -14,6 +14,7 @@ install:
 before_script:
   - echo deployment initiated at `date`
   - docker --version # print the version for logging
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 script:
   - echo Initiating build process for frontend project
@@ -40,7 +41,6 @@ script:
 
 # Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
 after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push "$DOCKER_USERNAME"/udagram-api-frontend
   - docker push "$DOCKER_USERNAME"/udagram-api-users
   - docker push "$DOCKER_USERNAME"/udagram-api-feeds
