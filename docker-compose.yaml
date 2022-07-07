@@ -15,7 +15,8 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - JWT_SECRET=testing
-      - URL=http://localhost:8100
+      - URL=http://localhost
+      - PORT=80
     depends_on:
       - postgres
 
@@ -29,7 +30,8 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_DB=postgres
       - JWT_SECRET=testing
-      - URL=http://localhost:8100
+      - URL=http://localhost
+      - PORT=80
     depends_on:
       - postgres
 
@@ -37,15 +39,13 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./udagram-frontend
-    ports:
-      - 8100:80
   
   reverseproxy:
     build:
       dockerfile: Dockerfile
       context: ./udagram-reverseproxy
     ports:
-      - 8080:8080
+      - 80:80
     depends_on:
       - feeds
       - users

@@ -13,7 +13,7 @@ import { sequelize } from "./sequelize";
   await sequelize.sync();
 
   const app = express();
-  const port = process.env.PORT || 8080;
+  const port = +process.env.PORT || 8080;
 
   app.use(express.json());
 
@@ -40,7 +40,6 @@ import { sequelize } from "./sequelize";
 
   // Start the Server
   app.listen(port, () => {
-    console.log(`server running ${config.url}`);
-    console.log(`press CTRL+C to stop server`);
+    console.log(`server running on port ${port}`);
   });
 })();
