@@ -42,10 +42,10 @@ services:
     #   context: ./udagram-frontend
   
   reverseproxy:
-    image: emmanuerl/udagram-reverseproxy
-    # build:
-    #   dockerfile: Dockerfile
-    #   context: ./udagram-reverseproxy
+    # image: emmanuerl/udagram-reverseproxy
+    build:
+      dockerfile: Dockerfile
+      context: ./udagram-reverseproxy
     ports:
       - 80:80
     depends_on:
