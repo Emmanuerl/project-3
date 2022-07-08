@@ -1,9 +1,8 @@
 import { IndexRouter } from "./controllers/v0/index.router";
 import { V0_USER_MODELS } from "./controllers/v0/model.index";
-import bodyParser from "body-parser";
-import { config } from "./config/config";
 import cors from "cors";
 import express from "express";
+import morgan from "morgan";
 import { sequelize } from "./sequelize";
 
 (async () => {
@@ -16,6 +15,19 @@ import { sequelize } from "./sequelize";
   const port = +process.env.PORT || 8080;
 
   app.use(express.json());
+
+  app.use(
+    morgan(function (tokens, req, res) {
+      return [
+        `METHOD::: ${tokens.method(req, res)}`,
+        `URL::: ${tokens.url(req, res)}`,
+        `STATUS::: ${tokens.status(req, res)}`,
+        `CONTENT-LENGTH::: ${tokens.res(req, res, "content-length")}`,
+        `DURATION::: ${tokens["response-time"](req, res)}ms`,
+        `REQUEST ID::: ${Date.now()}`,
+      ].join("\t");
+    })
+  );
 
   // We set the CORS origin to * so that we don't need to
   // worry about the complexities of CORS this lesson. It's
